@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Pizzeria Daber</title>
+	<style>
+		body{
+			background-color:orange;
+		}
+
+		h1{
+			 color: red; 
+			 font-size: 3em;
+			 font-family: cursive;
+		}	
+	</style>
+</h:head>
+
+<h:body>
+	<a href="index.xhtml" ><img href="index" src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Deus_Pizza.png" 
+		align="right" style="height: 100px; width: 100px;"/> </a>
+	<h1 align="center">Benvenuto alla pizzeria ilDaber</h1>
+	<main>
+		<h:form>
+			<div align="center">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel value="Effettua il Login per accedere al servizio" style="font-size: 1.3em; color: red;"/>
+		    		<p:commandButton value="Login" style="background-color: red;" type="button" onclick="PF('dlg2').show();" />
+		    	</h:panelGrid>
+	    	</div>
+		    	
+	    </h:form>   
+     </main>
+     <h:form>
+     
+		<p:growl id="growl" showDetail="true" life="4000"/>  
+		     
+	    <p:dialog header="Login" widgetVar="dlg2" modal="true" height="150">
+	        <h:panelGrid columns="2" cellpadding="5">
+	            <h:outputLabel for="username" value="Username:*" />
+	            <p:inputText id="username" value="#{utenteBean.username}" required="true" label="username" />
+	             
+	            <h:outputLabel for="password" value="Password:*" />
+	            <p:password id="password" value="#{utenteBean.password}" required="true" label="password" />
+	             
+	            <f:facet name="footer">
+	                <h:commandButton value="Login" action="#{utenteBean.login}"
+	                                 style="background-color: red;"/>
+	            </f:facet>  
+	        </h:panelGrid>
+	    </p:dialog>
+	       
+	</h:form>
+</h:body>
+</html>

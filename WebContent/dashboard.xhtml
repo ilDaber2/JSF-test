@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Pizza</title>
+	<style>
+body {
+	background-color: orange;
+}
+
+h1 {
+	color: red;
+	font-size: 3em;
+	font-family: cursive;
+}
+
+h3 {
+	color: red;
+	font-family: cursive;
+}
+
+</style>
+</h:head>
+<h:body>
+	<a href="index.xhtml"><img href="index"
+		src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Deus_Pizza.png"
+		align="right" style="height: 100px; width: 100px;" /> </a>
+	<h1 align="center">
+		Benvenuto, #{pizzaBean.utente.username} alla pizzeria ilDaber!
+	</h1>
+
+	<h:form>
+		<p:growl id="growl" showDetail="true" life="4000" />
+		<p:dataTable var="pizza" id="dataTable" lazy="true"
+			value="#{pizzaBean.utente.pizze}" style="font-family: cursive;">
+			<p:column>
+				<p:graphicImage
+					value="https://www.iconpacks.net/icons/2/free-search-icon-3076-thumb.png"
+					height="40px" width="40px" id="search" onclick="PF('dlg2').show();"
+					style="margin-right: 10px" />
+				<p:graphicImage
+					value="https://cdn-icons-png.flaticon.com/512/32/32355.png"
+					height="40px" width="40px" id="edit" onclick="PF('dlg2').show();" />
+			</p:column>
+			<p:column headerText="Nome">
+				<h:outputText value="#{pizza.nomePiz}" />
+			</p:column>
+			<p:column headerText="Impasto">
+				<h:outputText value="#{pizza.impasto.nomeImp}" />
+			</p:column>
+			<p:column headerText="Ingredienti">
+				 <p:dataList value="#{pizza.ingrediente}" var="ingr" type="definition" style="font-family: cursive;">
+				 	#{ingr.nomeIngr}
+				 </p:dataList>
+			</p:column>
+		</p:dataTable>
+		<div align="center">
+			<p:commandButton value="Create" type="button"
+				onclick="PF('dlg2').show();" style="background-color: red;" />
+		</div>
+
+		<p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true"
+			height="700" width="1000">
+			<h:panelGrid columns="1" style="margin-bottom:10px; float: left" cellpadding="5" width="50%">
+				<h3>Impasto</h3>
+				<p:selectOneRadio id="impasto"  value="#{pizzaBean.listaImpasti}" layout="responsive" columns="1">
+					<f:selectItems value="#{pizzaBean.listNomeImpasti}" var="c" />
+				</p:selectOneRadio>
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" style="margin-bottom:10px;" cellpadding="5" >
+				<h3>Ingredienti</h3> <br />
+				<p:selectManyCheckbox id="ingredienti" value="#{pizzaBean.listaIngredienti}" layout="grid" columns="1">
+					<f:selectItems var="ingr" value="#{pizzaBean.listNomeIngr}" />
+				</p:selectManyCheckbox>
+			</h:panelGrid>			
+			
+			<div align="center">
+					<p:outputLabel style="color: red; font-family: cursive;"
+						value="Inserire il nome della pizza: " />
+					<p:inputText />	
+				</div> <br />
+			<div align="center">
+				<p:commandButton value="Create" type="button"
+					action="create" style="background-color: red;" />
+			</div>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>
